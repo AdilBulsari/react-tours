@@ -1,6 +1,6 @@
 import React from "react";
 import Tour from "./Tour";
-const Tours = ({ tours }) => {
+const Tours = ({ tours, fetchTours, removeTour }) => {
   // console.log(tourData);
   return (
     <section>
@@ -9,9 +9,18 @@ const Tours = ({ tours }) => {
         <div className="underline"></div>
       </div>
       <div>
-        {tours.map((tour) => {
-          return <Tour key={tour.id} {...tour} />;
-        })}
+        {tours.length > 0 ? (
+          tours.map((tour) => {
+            return <Tour removeTour={removeTour} key={tour.id} {...tour} />;
+          })
+        ) : (
+          <div className="title">
+            <h2>No tours left ...</h2>
+            <button className="btn" onClick={() => fetchTours()}>
+              Refresh
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

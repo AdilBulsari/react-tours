@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Loading from "./Loading";
 import Tours from "./Tours";
-// ATTENTION!!!!!!!!!!
-// I SWITCHED TO PERMANENT DOMAIN
+
 const url = "https://course-api.com/react-tours-project";
 
 function App() {
   const [loading, setLoading] = useState(false);
   const [tourData, setTourData] = useState([]);
+
+  const removeTour = (id) => {
+    const newTours = tourData.filter((tour) => tour.id !== id);
+    setTourData(newTours);
+  };
 
   const fetchTours = async () => {
     setLoading(true);
@@ -36,7 +40,7 @@ function App() {
 
   return (
     <main>
-      <Tours tours={tourData} />
+      <Tours fetchTours={fetchTours} removeTour={removeTour} tours={tourData} />
     </main>
   );
 }
